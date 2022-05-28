@@ -9,7 +9,7 @@ function Sim(sldrId) {
 		this.sldrRoot = document.querySelector('.sim-slider')
 	};
 
-	// Slider objects
+	// Элементы сладера
 	this.sldrList = this.sldrRoot.querySelector('.sim-slider-list');
 	this.sldrElements = this.sldrList.querySelectorAll('.sim-slider-element');
 	this.sldrElemFirst = this.sldrList.querySelector('.sim-slider-element');
@@ -17,14 +17,14 @@ function Sim(sldrId) {
 	this.rightArrow = this.sldrRoot.querySelector('div.sim-slider-arrow-right');
 	this.indicatorDots = this.sldrRoot.querySelector('div.sim-slider-dots');
 
-	// Initialization
+	// Инициализация
 	this.options = Sim.defaults;
 	Sim.initialize(this)
 };
 
 Sim.defaults = {
 
-	// Default options for the slider
+	// Свойства слайдера
 	loop: true,     // Бесконечное зацикливание слайдера
 	auto: true,     // Автоматическое пролистывание
 	interval: 5000, // Интервал между пролистыванием элементов (мс)
@@ -88,14 +88,14 @@ Sim.prototype.dotOff = function(num) {
 
 Sim.initialize = function(that) {
 
-	// Constants
+	
 	that.elemCount = that.sldrElements.length; // Количество элементов
 
-	// Variables
+
 	that.currentElement = 0;
 	let bgTime = getTime();
 
-	// Functions
+	
 	function getTime() {
 		return new Date().getTime();
 	};
@@ -108,7 +108,7 @@ Sim.initialize = function(that) {
 		}, that.options.interval)
 	};
 
-	// Start initialization
+
 	if(that.elemCount <= 1) {   // Отключить навигацию
 		that.options.auto = false;
                 that.options.arrows = false; that.options.dots = false;
@@ -159,7 +159,7 @@ Sim.initialize = function(that) {
 		that.indicatorDots.innerHTML = sum;
 		that.indicatorDotsAll =
                        that.sldrRoot.querySelectorAll('span.sim-dot');
-		// Назначаем точкам обработчик события 'click'
+	
 		for(let n=0; n<that.elemCount; n++) {
 			that.indicatorDotsAll[n].addEventListener('click', function(){
 				diffNum = Math.abs(n - that.currentElement);
@@ -169,10 +169,10 @@ Sim.initialize = function(that) {
 				else if(n > that.currentElement) {
 					bgTime = getTime(); that.elemNext(diffNum)
 				}
-				// Если n == that.currentElement ничего не делаем
+				
 			}, false)
 		};
-		that.dotOff(0);  // точка[0] выключена, остальные включены
+		that.dotOff(0);  
 		for(let i=1; i<that.elemCount; i++) {
 			that.dotOn(i)
 		}
